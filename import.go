@@ -55,9 +55,8 @@ func newImport(desc *servicedescriptor.ServiceDescriptor, cfg *config.Config) (n
 //export NewImportYAML
 func NewImportYAML(descYAML *C.char, address *C.char) (e C.int) {
 	desc := servicedescriptor.FromYaml(C.GoString(descYAML))
-	cfg := config.Default()
+	cfg := config.Default(C.GoString(address))
 	//	cfg.Logger() = os.Stdout
-	cfg.NetworkInterfaces = []string{C.GoString(address)}
 	return C.int(newImport(desc, cfg))
 }
 

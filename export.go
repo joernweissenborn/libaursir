@@ -64,9 +64,8 @@ func getRequest(n int) eventual2go.Subscriber {
 func NewExportYAML(descYAML *C.char, address *C.char) (e C.int) {
 	fmt.Println(C.GoString(address))
 	desc := servicedescriptor.FromYaml(C.GoString(descYAML))
-	cfg := config.Default()
+	cfg := config.Default(C.GoString(address))
 	//	cfg.Logger() = os.Stdout
-	cfg.NetworkInterfaces = []string{C.GoString(address)}
 	return C.int(newExport(desc, cfg))
 }
 
